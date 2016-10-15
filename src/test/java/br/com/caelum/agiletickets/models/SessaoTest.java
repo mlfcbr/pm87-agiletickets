@@ -40,7 +40,12 @@ public class SessaoTest {
 	
 	@Test
 	public void podeReservarTodosOsIngressosDisponiveis(){
-		Assert.assertEquals(1, 2);
+		Sessao sessao =  new Sessao();
+		sessao.setTotalIngressos(5);
+		
+		
+		Assert.assertEquals(true, sessao.podeReservar(5));
+		
 		
 	}
 	
