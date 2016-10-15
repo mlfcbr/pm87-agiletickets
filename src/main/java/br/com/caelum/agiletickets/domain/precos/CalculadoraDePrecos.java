@@ -35,7 +35,7 @@ public class CalculadoraDePrecos {
 
 	private static BigDecimal calculaPrecoBallet(Sessao sessao) {
 		BigDecimal preco;
-		if((sessao.getTotalIngressos() - sessao.getIngressosReservados()) / sessao.getTotalIngressos().doubleValue() <= 0.50) { 
+		if(calculoDeOcupacao(sessao) <= 0.50) { 
 			preco = sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(0.20)));
 		} else {
 			preco = sessao.getPreco();
@@ -50,12 +50,16 @@ public class CalculadoraDePrecos {
 	private static BigDecimal calculaPrecoCinemaShow(Sessao sessao) {
 		BigDecimal preco;
 		//quando estiver acabando os ingressos... 
-		if((sessao.getTotalIngressos() - sessao.getIngressosReservados()) / sessao.getTotalIngressos().doubleValue() <= 0.05) { 
+		if(calculoDeOcupacao(sessao) <= 0.05) { 
 			preco = sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(0.10)));
 		} else {
 			preco = sessao.getPreco();
 		}
 		return preco;
+	}
+	
+	private static double calculoDeOcupacao(Sessao sessao) {
+		return (sessao.getTotalIngressos() - sessao.getIngressosReservados()) / sessao.getTotalIngressos().doubleValue();
 	}
 
 }
