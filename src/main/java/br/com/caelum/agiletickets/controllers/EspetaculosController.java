@@ -53,7 +53,6 @@ public class EspetaculosController {
 
 	@Get("/espetaculos")
 	public List<Espetaculo> lista() {
-		// inclui a lista de estabelecimentos
 		result.include("estabelecimentos", estabelecimentos.todos());
 		return agenda.espetaculos();
 	}
@@ -121,8 +120,7 @@ public class EspetaculosController {
 		if (!sessao.podeReservar(quantidade)) {
 			validator.add(new SimpleMessage("", "Não existem ingressos disponíveis"));
 		}
-
-		// em caso de erro, redireciona para a lista de sessao
+		
 		validator.onErrorRedirectTo(this).sessao(sessao.getId());
 
 		BigDecimal precoTotal = CalculadoraDePrecos.calcula(sessao, quantidade);
@@ -141,11 +139,6 @@ public class EspetaculosController {
 		}
 		validator.onErrorUse(status()).notFound();
 		return espetaculo;
-	}
-
-	// metodo antigo. aqui soh por backup
-	private Estabelecimento criaEstabelecimento(Long id) {
-		return estabelecimentos.todos().get(0);
 	}
 	
 }
