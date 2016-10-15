@@ -23,17 +23,15 @@ public class CalculadoraDePrecos {
 		
 		if(tipo.equals(TipoDeEspetaculo.CINEMA) || tipo.equals(TipoDeEspetaculo.SHOW)) {
 			preco = calculaPrecoCinemaShow(sessao);
-		} else if(tipo.equals(TipoDeEspetaculo.BALLET)) {
-			preco = calculaPrecoBallet(sessao);
-		} else if(tipo.equals(TipoDeEspetaculo.ORQUESTRA)) {
-			preco = calculaPrecoBallet(sessao);
-		}  else {
+		} else if(tipo.equals(TipoDeEspetaculo.BALLET) || tipo.equals(TipoDeEspetaculo.ORQUESTRA)) {
+			preco = calculaPrecoBalletOrquestra(sessao);
+		} else {
 			preco = sessao.getPreco();
 		}
 		return preco;
 	}
 
-	private static BigDecimal calculaPrecoBallet(Sessao sessao) {
+	private static BigDecimal calculaPrecoBalletOrquestra(Sessao sessao) {
 		BigDecimal preco;
 		if(calculoDeOcupacao(sessao) <= 0.50) { 
 			preco = sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(0.20)));
