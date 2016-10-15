@@ -119,4 +119,47 @@ public class Sessao {
 		return preco;
 	}
 	
+	public BigDecimal calculaPrecoGeral() {
+		TipoDeEspetaculo tipo = getEspetaculo().getTipo();
+		
+		if(tipo.equals(TipoDeEspetaculo.CINEMA) || tipo.equals(TipoDeEspetaculo.SHOW)) 
+			return calculaPrecoCinemaShow();
+				
+		if(tipo.equals(TipoDeEspetaculo.BALLET) || tipo.equals(TipoDeEspetaculo.ORQUESTRA)) 
+			return calculaPrecoBalletOrquestra();
+				
+		return getPreco();
+	}
+
+	private BigDecimal calculaPrecoBalletOrquestra( ) {
+		BigDecimal preco;
+		BigDecimal precoSessao = getPreco();
+		
+		if(calculoDeOcupacao() <= 0.50) { 
+			preco = precoSessao.add(precoSessao.multiply(BigDecimal.valueOf(0.20)));
+		} else {
+			preco = precoSessao;
+		}
+		
+		if(getDuracaoEmMinutos() > 60){
+			preco = preco.add(precoSessao.multiply(BigDecimal.valueOf(0.10)));
+		}
+		return preco;
+	}
+
+	private BigDecimal calculaPrecoCinemaShow() {
+		BigDecimal preco;
+		BigDecimal precoSessao = getPreco();
+		
+		if(calculoDeOcupacao() <= 0.05) { 
+			preco = precoSessao.add(precoSessao.multiply(BigDecimal.valueOf(0.10)));
+		} else {
+			preco = precoSessao;
+		}
+		return preco;
+	}
+	
+	private double calculoDeOcupacao() {
+		return (getTotalIngressos() - getIngressosReservados()) / getTotalIngressos().doubleValue();
+	}
 }
