@@ -10,8 +10,10 @@ public class CalculadoraDePrecos {
 	public static BigDecimal calcula(Sessao sessao, Integer quantidade) {
 		
 		BigDecimal preco = calculaPrecoGeral(sessao); 
-	
-		return preco.multiply(BigDecimal.valueOf(quantidade));
+		
+		BigDecimal quantidadeBigDecimal = BigDecimal.valueOf(quantidade);
+		
+		return preco.multiply(quantidadeBigDecimal);
 	}
 
 	private static BigDecimal calculaPrecoGeral(Sessao sessao) {
