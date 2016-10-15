@@ -11,18 +11,21 @@ public class CalculadoraDePrecos {
 		
 		BigDecimal preco = calculaPrecoGeral(sessao); 
 		
-		BigDecimal quantidadeBigDecimal = BigDecimal.valueOf(quantidade);
+		BigDecimal quantidadeIngressosSolicitados = BigDecimal.valueOf(quantidade);
 		
-		return preco.multiply(quantidadeBigDecimal);
+		return preco.multiply(quantidadeIngressosSolicitados);
 	}
 
 	private static BigDecimal calculaPrecoGeral(Sessao sessao) {
 		BigDecimal preco;
-		if(sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.CINEMA) || sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.SHOW)) {
+		
+		TipoDeEspetaculo tipo = sessao.getEspetaculo().getTipo();
+		
+		if(tipo.equals(TipoDeEspetaculo.CINEMA) || tipo.equals(TipoDeEspetaculo.SHOW)) {
 			preco = calculaPrecoCinemaShow(sessao);
-		} else if(sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.BALLET)) {
+		} else if(tipo.equals(TipoDeEspetaculo.BALLET)) {
 			preco = calculaPrecoBallet(sessao);
-		} else if(sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.ORQUESTRA)) {
+		} else if(tipo.equals(TipoDeEspetaculo.ORQUESTRA)) {
 			preco = calculaPrecoBallet(sessao);
 		}  else {
 			preco = sessao.getPreco();
