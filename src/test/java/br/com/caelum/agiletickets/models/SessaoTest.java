@@ -38,4 +38,10 @@ public class SessaoTest {
 		Assert.assertEquals(2, sessao.getIngressosDisponiveis().intValue());
 	}
 	
+	@Test
+	public void podeReservarTodosOsIngressosDisponiveis(){
+		Assert.assertEquals(1, 2);
+		
+	}
+	
 }
