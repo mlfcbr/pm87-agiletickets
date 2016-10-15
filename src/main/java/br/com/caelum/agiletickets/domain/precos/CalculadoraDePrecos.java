@@ -33,24 +33,28 @@ public class CalculadoraDePrecos {
 
 	private static BigDecimal calculaPrecoBalletOrquestra(Sessao sessao) {
 		BigDecimal preco;
+		BigDecimal precoSessao = sessao.getPreco();
+		
 		if(calculoDeOcupacao(sessao) <= 0.50) { 
-			preco = sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(0.20)));
+			preco = precoSessao.add(precoSessao.multiply(BigDecimal.valueOf(0.20)));
 		} else {
-			preco = sessao.getPreco();
+			preco = precoSessao;
 		}
 		
 		if(sessao.getDuracaoEmMinutos() > 60){
-			preco = preco.add(sessao.getPreco().multiply(BigDecimal.valueOf(0.10)));
+			preco = preco.add(precoSessao.multiply(BigDecimal.valueOf(0.10)));
 		}
 		return preco;
 	}
 
 	private static BigDecimal calculaPrecoCinemaShow(Sessao sessao) {
 		BigDecimal preco;
+		BigDecimal precoSessao = sessao.getPreco();
+		
 		if(calculoDeOcupacao(sessao) <= 0.05) { 
-			preco = sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(0.10)));
+			preco = precoSessao.add(precoSessao.multiply(BigDecimal.valueOf(0.10)));
 		} else {
-			preco = sessao.getPreco();
+			preco = precoSessao;
 		}
 		return preco;
 	}
