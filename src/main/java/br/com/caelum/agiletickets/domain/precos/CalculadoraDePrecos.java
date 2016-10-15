@@ -47,7 +47,6 @@ public class CalculadoraDePrecos {
 
 	private static BigDecimal calculaPrecoCinemaShow(Sessao sessao) {
 		BigDecimal preco;
-		//quando estiver acabando os ingressos... 
 		if(calculoDeOcupacao(sessao) <= 0.05) { 
 			preco = sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(0.10)));
 		} else {
