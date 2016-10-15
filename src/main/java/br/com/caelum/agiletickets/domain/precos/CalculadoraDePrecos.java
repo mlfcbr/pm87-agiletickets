@@ -17,18 +17,17 @@ public class CalculadoraDePrecos {
 	}
 
 	private static BigDecimal calculaPrecoGeral(Sessao sessao) {
-		BigDecimal preco;
-		
 		TipoDeEspetaculo tipo = sessao.getEspetaculo().getTipo();
 		
 		if(tipo.equals(TipoDeEspetaculo.CINEMA) || tipo.equals(TipoDeEspetaculo.SHOW)) {
-			preco = calculaPrecoCinemaShow(sessao);
-		} else if(tipo.equals(TipoDeEspetaculo.BALLET) || tipo.equals(TipoDeEspetaculo.ORQUESTRA)) {
-			preco = calculaPrecoBalletOrquestra(sessao);
-		} else {
-			preco = sessao.getPreco();
-		}
-		return preco;
+			return calculaPrecoCinemaShow(sessao);
+		} 
+		
+		if(tipo.equals(TipoDeEspetaculo.BALLET) || tipo.equals(TipoDeEspetaculo.ORQUESTRA)) {
+			return calculaPrecoBalletOrquestra(sessao);
+		} 
+		
+		return sessao.getPreco();
 	}
 
 	private static BigDecimal calculaPrecoBalletOrquestra(Sessao sessao) {
