@@ -147,7 +147,7 @@ public class EspetaculoTest {
 		
 		java.util.List<Sessao> listaSessoes = espetaculo.criaSessoes(dataInicio, dataFinal, horario, Periodicidade.SEMANAL);
 		
-		Assert.assertTrue(listaSessoes.size() == 4);		
+		Assert.assertTrue(listaSessoes.size() == 5);		
 		
 	}
 
