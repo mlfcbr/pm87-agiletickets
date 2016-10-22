@@ -104,28 +104,38 @@ public class Espetaculo {
 		if (inicio.isAfter(fim))
 			throw new IllegalArgumentException();
 
-		List<Sessao> listaSesao = new ArrayList<Sessao>();
-
-		if (periodicidade == Periodicidade.DIARIA) {
-			int quantidadeDias = Days.daysBetween(inicio, fim).getDays();
-
-			for (int i = 0; i <= quantidadeDias; i++) {
-				Sessao sessao = new Sessao();
-				sessao.setInicio(inicio.toDateTime(horario).plusDays(i));
-				listaSesao.add(sessao);
-			}
-		}
-		else if (periodicidade == Periodicidade.SEMANAL) {
-			int quantidadeDSemanas = Weeks.weeksBetween(inicio, fim).getWeeks();
-
-			for (int i = 0; i <= quantidadeDSemanas; i++) {
-				Sessao sessao = new Sessao();
-				sessao.setInicio(inicio.toDateTime(horario).plusWeeks(i));
-				listaSesao.add(sessao);
-			}
-		}
+		List<Sessao> listaSesao = criarSessaoInterna(inicio, fim, horario, periodicidade);	
 
 		return listaSesao;
+	}
+	
+	
+	private List<Sessao> criarSessaoInterna(LocalDate inicio, LocalDate fim, LocalTime horario, Periodicidade periodicidade){
+		List<Sessao> listaSesao = new ArrayList<Sessao>();
+		int quantidade = 0;	
+		
+		if (periodicidade == Periodicidade.DIARIA)
+			quantidade = Days.daysBetween(inicio, fim).getDays();
+		else if (periodicidade == Periodicidade.SEMANAL) 
+			quantidade = Weeks.weeksBetween(inicio, fim).getWeeks();
+
+		for (int i = 0; i <= quantidade; i++) {
+			Sessao sessao = new Sessao();		
+			
+			incrementaPeriodo(inicio, horario, periodicidade, i, sessao);
+			
+			listaSesao.add(sessao);
+		}
+		
+		return listaSesao;
+	}
+
+	private void incrementaPeriodo(LocalDate inicio, LocalTime horario,
+			Periodicidade periodicidade, int i, Sessao sessao) {
+		if (periodicidade == Periodicidade.DIARIA)
+			sessao.setInicio(inicio.toDateTime(horario).plusDays(i));
+		else if (periodicidade == Periodicidade.SEMANAL) 
+			sessao.setInicio(inicio.toDateTime(horario).plusWeeks(i));
 	}
 
 	public boolean Vagas(int qtd, int min) {
