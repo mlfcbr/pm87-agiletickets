@@ -101,11 +101,20 @@ public class Espetaculo {
 	public List<Sessao> criaSessoes(LocalDate inicio, LocalDate fim, LocalTime horario, Periodicidade periodicidade) {
 		// ALUNO: Não apague esse metodo. Esse sim será usado no futuro! ;)
 				
-		Sessao sessao = new Sessao();
+		if(inicio.isAfter(fim))
+			throw new IllegalArgumentException();
+		
 		
 		List<Sessao> listaSesao = new ArrayList<Sessao>();
-		listaSesao.add(sessao);
 		
+		int quantidadeDias = Days.daysBetween(inicio, fim).getDays();
+		
+		for(int i = 0; i <= quantidadeDias; i++){
+			Sessao sessao = new Sessao();
+			sessao.setInicio(inicio.toDateTime(horario).plusDays(i));
+			listaSesao.add(sessao);
+		}
+				
 		return listaSesao;
 	}
 	

@@ -1,7 +1,6 @@
 package br.com.caelum.agiletickets.models;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -98,6 +97,30 @@ public class EspetaculoTest {
 		
 	}
 	
+	@Test(expected=IllegalArgumentException.class)
+	public void impedeCriacaoDeSessaoComDataFinalMenorQueADataIniciar(){
+		Espetaculo espetaculo = new Espetaculo();
+		
+		LocalDate dataInicio = new LocalDate().withYear(2016).withMonthOfYear(10).withDayOfMonth(22);
+		LocalDate dataFinal  = dataInicio.minusDays(10);
+		LocalTime horario = new LocalTime().withHourOfDay(10).withMillisOfDay(30);
+		
+		espetaculo.criaSessoes(dataInicio, dataFinal, horario, Periodicidade.DIARIA);
 	
+	}
 	
+	@Test
+	public void criaCincoSessoesDePeriodicidadeDiaria(){
+		Espetaculo espetaculo = new Espetaculo();
+		
+		LocalDate dataInicio = new LocalDate().withYear(2016).withMonthOfYear(10).withDayOfMonth(22);
+		LocalDate dataFinal  = dataInicio.plusDays(4);
+		LocalTime horario = new LocalTime().withHourOfDay(10).withMillisOfDay(30);
+		
+		java.util.List<Sessao> listaSessoes = espetaculo.criaSessoes(dataInicio, dataFinal, horario, Periodicidade.DIARIA);
+		
+		Assert.assertTrue(listaSessoes.size() == 5);		
+		
+	}
+
 }
