@@ -122,5 +122,19 @@ public class EspetaculoTest {
 		Assert.assertTrue(listaSessoes.size() == 5);		
 		
 	}
+	
+	@Test
+	public void criaUmaSessaoSemanalSeADataInicioEDataFimForemIguais(){
+		Espetaculo espetaculo = new Espetaculo();
+		
+		LocalDate dataInicio = new LocalDate().withYear(2016).withMonthOfYear(10).withDayOfMonth(22);
+		LocalDate dataFinal  = dataInicio;
+		LocalTime horario = new LocalTime().withHourOfDay(10).withMillisOfDay(30);
+		
+		java.util.List<Sessao> listaSessoes = espetaculo.criaSessoes(dataInicio, dataFinal, horario, Periodicidade.SEMANAL);
+		
+		Assert.assertTrue(listaSessoes.size() == 1);		
+		
+	}
 
 }
